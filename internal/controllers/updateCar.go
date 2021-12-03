@@ -25,7 +25,7 @@ func UpdateCar(c *fiber.Ctx) error {
 		})
 	}
 
-	objId, err := primitive.ObjectIDFromHex(c.Params("id"))
+	objectID, err := primitive.ObjectIDFromHex(c.Params("id"))
 	if err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"success": false,
@@ -37,7 +37,7 @@ func UpdateCar(c *fiber.Ctx) error {
 	update := bson.M{
 		"$set": car,
 	}
-	_, err = carsCollection.UpdateOne(ctx, bson.M{"_id": objId}, update)
+	_, err = carsCollection.UpdateOne(ctx, bson.M{"_id": objectID}, update)
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{
 			"success": false,

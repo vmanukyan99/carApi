@@ -15,8 +15,8 @@ func GetCar(c *fiber.Ctx) error {
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 
 	var car models.Car
-	objId, err := primitive.ObjectIDFromHex(c.Params("id"))
-	findResult := carsCollection.FindOne(ctx, bson.M{"_id": objId})
+	objectID, err := primitive.ObjectIDFromHex(c.Params("id"))
+	findResult := carsCollection.FindOne(ctx, bson.M{"_id": objectID})
 	if err := findResult.Err(); err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"success": false,

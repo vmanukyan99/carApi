@@ -13,7 +13,7 @@ func DeleteCar(c *fiber.Ctx) error {
 	carsCollection := config.MI.DB.Collection("cars")
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 
-	objId, err := primitive.ObjectIDFromHex(c.Params("id"))
+	objectID, err := primitive.ObjectIDFromHex(c.Params("id"))
 	if err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"success": false,
@@ -21,7 +21,7 @@ func DeleteCar(c *fiber.Ctx) error {
 			"error":   err,
 		})
 	}
-	_, err = carsCollection.DeleteOne(ctx, bson.M{"_id": objId})
+	_, err = carsCollection.DeleteOne(ctx, bson.M{"_id": objectID})
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{
 			"success": false,
